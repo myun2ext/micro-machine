@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 /*  Machine structure */
 struct machine
 {
@@ -8,11 +10,19 @@ struct machine
 	char* top_ptr;
 };
 
+int proc_byte(struct machine* m, char c)
+{
+	if ( c == '\0' )
+		return 1;
+
+	putchar(c);
+	return 0;
+}
+
 int run(struct machine* m, const char* readed_buffer)
 {
 	const char* p = readed_buffer;
-	while(*p != '\0') {
-		p++;
-	}
-	return 0;
+	int ret = 0;
+	while(!(ret = proc_byte(m, *(p++))));
+	return ret;
 }
