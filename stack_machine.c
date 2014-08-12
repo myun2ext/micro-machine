@@ -1,42 +1,49 @@
 #include <stdio.h>
 
-struct sm_stack
+/*  Machine structure */
+struct machine
 {
+	const char* script;
+	const char* script_current;
+	int registers[1024];
+
 	char buffer[2048];
 	char* top_ptr;
 };
-char script_buffer[1024 * 16];
+__thread char script[1024 * 16];
 
-const char* read_script(const char* filename)
+const char* read_script(/*char* buffer, unsigned int buffer_size,*/ const char* filename)
 {
 	FILE *fp = fopen(filename, "r");
 	if ( fp == NULL )
 		return NULL;
 
-	fread(script_buffer, sizeof(script_buffer), 1, fp);
-	return script_buffer;
+	fread(script, sizeof(script), 1, fp);
+	return script;
 }
 
-int run(struct sm_stack*, const char* readed_buffer, char* script_ptr);
+int run(struct machine*, const char* readed_buffer);
 
+/*  Stack Machine IO Main Function  */
 int main(int argc, const char *argv[])
 {
 	/*  Variables */
 	const char* script_filename = argv[1];
-	char readed[256];
-	struct sm_stack stack = { "", NULL };
+	char read_buffer[256];
+	struct machine m = {};
 	int ret = 0;
-	const char* script_ptr = script_buffer;
 
-	/*  Init stack */
-	stack.top_ptr = stack.buffer;
+	/*  Init machine */
+	m.script = script;
+	m.script_current = m.script;
+	m.top_ptr = m.buffer;
 
 	/*  Read Script */
 	read_script(script_filename);
 
 	/*  Running... */
-	while(fgets(readed, sizeof(readed), stdin) != 0) {
-		ret = run(&stack, readed, &script_ptr);
+	while(fgets(read_buffer, sizeof(read_buffer), stdin) != 0) {
+		ret = run(&m, read_buffer);
 	}
 	return ret;
 }
