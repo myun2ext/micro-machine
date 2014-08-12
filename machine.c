@@ -10,5 +10,9 @@ struct machine
 
 int run(struct machine* m, const char* readed_buffer)
 {
+	const char* p = readed_buffer;
+	while(*p != '\0') {
+		p++;
+	}
 	return 0;
 }
