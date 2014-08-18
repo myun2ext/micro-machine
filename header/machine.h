@@ -3,10 +3,11 @@
 
 typedef int 			mm_data_t;
 typedef unsigned int 	mm_size_t;
-typedef mm_data_t 		mm_stack_entry_t;
+typedef mm_data_t 		mm_stack_entry_t, mm_stack_data_t;
 typedef mm_data_t 		mm_register_t;
 
-#define REGISTER_SIZE	2048
+#define MM_DEFAULT_STACK_SIZE	128
+#define REGISTER_SIZE			2048
 
 typedef struct {
   /* Stacks */
