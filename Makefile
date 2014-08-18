@@ -1,2 +1,2 @@
 all:
-	gcc -O3 main.c
+	gcc -O3 machine.c main.c -o machine.out
