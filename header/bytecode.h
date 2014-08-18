@@ -12,6 +12,9 @@
 #define MM_CODE_CMP		32
 #define MM_CODE_JMP		40
 
+#define MM_CODE_OPEN	88
+#define MM_CODE_CLOSE	89
+
 #define MM_CODE_INPUT	128
 #define MM_CODE_OUTPUT	129
 
