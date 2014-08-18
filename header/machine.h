@@ -19,4 +19,6 @@ typedef struct {
   mm_register_t		registers[REGISTER_SIZE];
 } mm_machine, mm_machine_t;
 
+void mm_init_machine(mm_machine_t* m);
+
 #endif//__MYUN2_GITHUB__MICRO_MACHINE__MACHINE_H__

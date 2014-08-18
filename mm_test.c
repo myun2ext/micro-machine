@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "header/machine.h"
 
 int g_test_total = 0;
 int g_test_successfully = 0;
@@ -16,12 +17,23 @@ void expect_int(const char* context, int x, int result)
   }
 }
 
+/*****************************************/
+
+mm_machine machine;
+
+void init_machine_test()
+{
+  mm_init_machine(&machine);
+  expect_int("mm_init_machine: registers zero init", machine.registers[0], 0);
+  expect_int("mm_init_machine: stack zero init", machine.stack[0], 0);
+  expect_int("mm_init_machine: stack size", machine.stack_size, MM_DEFAULT_STACK_SIZE);
+}
+
 int main()
 {
-  expect_int("test1", 0, 0);
-  expect_int("test2", 1, 0);
+  init_machine_test();
 
-  printf ("Finally\n");
+  printf ("\n\nFinally\n");
   printf ("  Total: %d, Successfully: %d, Error: %d\n\n",
 	  g_test_total, g_test_successfully, g_test_total - g_test_successfully);
 
