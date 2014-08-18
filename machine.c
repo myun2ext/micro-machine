@@ -9,10 +9,19 @@ void mm_init_machine(mm_machine_t* m)
   m->stack_size = MM_DEFAULT_STACK_SIZE;
 }
 
-void mm_stack_push(mm_machine_t* m)
+void mm_stack_push(mm_machine_t* m, mm_stack_data_t value)
 {
+  if ( m->stack_used == MM_STACK_LIMIT_SIZE ) {
+	return;
+  }
+
+  m->stack[m->stack_used++] = value;
 }
 
-void mm_stack_pop(mm_machine_t* m)
+mm_stack_data_t mm_stack_pop(mm_machine_t* m)
 {
+  if ( m->stack_used == 0 )
+	return 0;
+
+  return m->stack[--m->stack_used];
 }
